@@ -16,4 +16,7 @@ public class User
     public IList<Campaign> Campaigns { get; set; } = new List<Campaign>();
     public IList<Donation> Donations { get; set; } = new List<Donation>();
     public IList<PaymentData> PaymentDatas { get; set; } = new List<PaymentData>();
+    
+    public int SuscriptionPlanId { get; set; }
+    public SuscriptionPlan SuscriptionPlan { get; set; }
 }

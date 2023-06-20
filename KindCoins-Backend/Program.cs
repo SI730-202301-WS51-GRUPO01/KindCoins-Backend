@@ -36,6 +36,10 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITypeOfDonationRepository, TypeOfDonationRepository>();
 builder.Services.AddScoped<ITypeOfDonationService, TypeOfDonationService>();
 
+//SuscriptionPlan
+builder.Services.AddScoped<ISuscriptionPlanRepository, SuscriptionPlanRepository>();
+builder.Services.AddScoped<ISuscriptionPlanService, SuscriptionPlanService>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //AutoMapper Configuration

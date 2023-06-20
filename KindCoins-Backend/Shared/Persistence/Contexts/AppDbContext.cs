@@ -13,6 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
     public DbSet<TypeOfDonation> TypeOfDonations { get; set; }
+    public DbSet<SuscriptionPlan> SuscriptionPlans { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         {
@@ -41,11 +42,22 @@ public class AppDbContext : DbContext
             builder.Entity<TypeOfDonation>().Property(p => p.TypeDonation).IsRequired().HasMaxLength(50);
             
                         
-            // Relationships
+            // Relationships with Campaign
             builder.Entity<TypeOfDonation>()
                 .HasMany(p => p.Campaigns)
                 .WithOne(p => p.TypeOfDonation)
                 .HasForeignKey(p => p.TypeOfDonationId);
+            
+            builder.Entity<SuscriptionPlan>().ToTable("SuscriptionPlan");
+            builder.Entity<SuscriptionPlan>().HasKey(p => p.Id);
+            builder.Entity<SuscriptionPlan>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<SuscriptionPlan>().Property(p => p.Plan).IsRequired().HasMaxLength(50);
+            
+            // Relationships with User
+            builder.Entity<SuscriptionPlan>()
+                .HasMany(p => p.Users)
+                .WithOne(p => p.SuscriptionPlan)
+                .HasForeignKey(p => p.SuscriptionPlanId);
 
             // Apply Snake Case Naming Convention
  
