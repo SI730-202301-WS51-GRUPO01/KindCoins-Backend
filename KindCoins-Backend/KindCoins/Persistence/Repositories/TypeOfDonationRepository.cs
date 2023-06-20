@@ -25,7 +25,14 @@ public class TypeOfDonationRepository : BaseRepository , ITypeOfDonationReposito
     
     public async Task<TypeOfDonation> FindByIdAsync(int id)
     {
-        return await _context.TypeOfDonations.FindAsync(id);
+        return await _context.TypeOfDonations
+            .FirstOrDefaultAsync(p => p.Id == id);
+    }
+    
+    public async Task<TypeOfDonation> FindByTypeDonationAsync(string typeDonation)
+    {
+        return await _context.TypeOfDonations
+            .FirstOrDefaultAsync(p => p.TypeDonation == typeDonation);
     }
     
     public void Update(TypeOfDonation typeOfDonation)

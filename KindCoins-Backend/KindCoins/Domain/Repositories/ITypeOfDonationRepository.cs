@@ -9,4 +9,5 @@ public interface ITypeOfDonationRepository
     Task<TypeOfDonation> FindByIdAsync(int id);
     void Update(TypeOfDonation typeOfDonation);
     void Remove(TypeOfDonation typeOfDonation);
+    Task<TypeOfDonation> FindByTypeDonationAsync(string typeDonation);
 }

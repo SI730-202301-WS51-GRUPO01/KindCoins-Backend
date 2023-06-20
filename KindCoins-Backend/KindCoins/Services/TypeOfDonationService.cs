@@ -23,6 +23,12 @@ public class TypeOfDonationService : ITypeOfDonationService
     
     public async Task<TypeOfDonationResponse> SaveAsync(TypeOfDonation typeOfDonation)
     {
+        
+        //Validate name
+        var existingTypeOfDonation = await _typeOfDonationRepository.FindByTypeDonationAsync(typeOfDonation.TypeDonation);
+        if (existingTypeOfDonation != null)
+            return new TypeOfDonationResponse("Type of donation already exists.");
+        
         try
         {
             await _typeOfDonationRepository.AddAsync(typeOfDonation);
@@ -40,6 +46,7 @@ public class TypeOfDonationService : ITypeOfDonationService
         var existingTypeOfDonation = await _typeOfDonationRepository.FindByIdAsync(id);
         if (existingTypeOfDonation == null)
             return new TypeOfDonationResponse("Type of donation not found.");
+        
         existingTypeOfDonation.TypeDonation = typeOfDonation.TypeDonation;
         try
         {
