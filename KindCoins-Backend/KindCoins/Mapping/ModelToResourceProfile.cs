@@ -9,7 +9,7 @@ public class ModelToResourceProfile : Profile
     public ModelToResourceProfile()
     {
         CreateMap<User, SaveUserResource>();
-        CreateMap<Campaign, SaveCampaignResource>();
+        CreateMap<Campaign, CampaignResource>();
         
         CreateMap<TypeOfDonation, TypeOfDonationResource>();
         CreateMap<SuscriptionPlan, SuscriptionPlanResource>();

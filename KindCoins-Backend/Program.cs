@@ -30,7 +30,10 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 //Dependency Injection Configuration
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<ICampaignService, CampaignService>();
+
+//Campaign
+builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
+builder.Services.AddScoped<ICampaignService, CampaignService>();
 
 //TypeOfDonation
 builder.Services.AddScoped<ITypeOfDonationRepository, TypeOfDonationRepository>();

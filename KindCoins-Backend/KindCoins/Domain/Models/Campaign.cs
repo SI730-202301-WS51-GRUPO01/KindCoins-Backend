@@ -16,9 +16,7 @@ public class Campaign
     public User User { get; set; }
     public int TypeOfDonationId { get; set; }
     public TypeOfDonation TypeOfDonation { get; set; }
-
-    public int PaymentDataId { get; set; }
-    public PaymentData PaymentData { get; set; }
+    
     public IList<Address> Addresses { get; set; } = new List<Address>();
     public IList<BankAccount> BankAccounts { get; set; } = new List<BankAccount>();
     public IList<Donation> Donations { get; set; } = new List<Donation>();

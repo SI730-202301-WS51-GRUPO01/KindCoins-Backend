@@ -24,7 +24,7 @@ public class AppDbContext : DbContext
             builder.Entity<User>().Property(p => p.FirstName).IsRequired().HasMaxLength(30);
             builder.Entity<User>().Property(p => p.LastName).IsRequired().HasMaxLength(30);
  
-            // Relationships
+            // Relationships User with Campaign
             builder.Entity<User>()
                 .HasMany(p => p.Campaigns)
                 .WithOne(p => p.User)
@@ -34,7 +34,11 @@ public class AppDbContext : DbContext
             builder.Entity<Campaign>().HasKey(p => p.Id);
             builder.Entity<Campaign>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Campaign>().Property(p => p.Name).IsRequired().HasMaxLength(50);
-            builder.Entity<Campaign>().Property(p => p.Description).HasMaxLength(120);
+            builder.Entity<Campaign>().Property(p => p.Slogan).IsRequired().HasMaxLength(50);
+            builder.Entity<Campaign>().Property(p => p.HeaderPhoto).IsRequired().HasMaxLength(50);
+            builder.Entity<Campaign>().Property(p => p.AditionalPhoto).IsRequired().HasMaxLength(50);
+            builder.Entity<Campaign>().Property(p => p.Description).HasMaxLength(500);
+            builder.Entity<Campaign>().Property(p => p.Goal).IsRequired();
 
             builder.Entity<TypeOfDonation>().ToTable("TypeOfDonation");
             builder.Entity<TypeOfDonation>().HasKey(p => p.Id);
@@ -42,7 +46,7 @@ public class AppDbContext : DbContext
             builder.Entity<TypeOfDonation>().Property(p => p.TypeDonation).IsRequired().HasMaxLength(50);
             
                         
-            // Relationships with Campaign
+            // Relationships TypeOfDonation with Campaign
             builder.Entity<TypeOfDonation>()
                 .HasMany(p => p.Campaigns)
                 .WithOne(p => p.TypeOfDonation)

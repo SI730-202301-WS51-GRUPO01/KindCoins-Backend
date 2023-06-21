@@ -8,4 +8,6 @@ public class SaveCampaignResource
     public string AditionalPhoto { get; set; }
     public string Description { get; set; }
     public int Goal { get; set; }
+    public int UserId { get; set; }
+    public int TypeOfDonationId { get; set; }
 }
