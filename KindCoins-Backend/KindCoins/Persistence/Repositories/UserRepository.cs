@@ -13,7 +13,9 @@ public class UserRepository : BaseRepository, IUserRepository
     }
     public async Task<IEnumerable<User>> ListAsync()
     {
-        return await _context.Users.ToListAsync();
+        return await _context.Users
+            .Include(p => p.SuscriptionPlan)
+            .ToListAsync();
     }
     public async Task AddAsync(User user)
     {
@@ -21,7 +23,9 @@ public class UserRepository : BaseRepository, IUserRepository
     }
     public async Task<User> FindByIdAsync(int id)
     {
-        return await _context.Users.FindAsync(id);
+        return await _context.Users
+            .Include(p => p.SuscriptionPlan)
+            .FirstOrDefaultAsync(p => p.Id == id);
     }
     public void Update(User user)
     {
@@ -31,5 +35,19 @@ public class UserRepository : BaseRepository, IUserRepository
     public void Remove(User user)
     {
         _context.Users.Remove(user);
+    }
+    
+    public async Task<User> FindByEmailAsync(string email)
+    {
+        return await _context.Users
+            .Include(p => p.SuscriptionPlan)
+            .FirstOrDefaultAsync(p => p.Email == email);
+    }
+    
+    public async Task<User> FindByDniAsync(string dni)
+    {
+        return await _context.Users
+            .Include(p => p.SuscriptionPlan)
+            .FirstOrDefaultAsync(p => p.DNI == dni);
     }
 }

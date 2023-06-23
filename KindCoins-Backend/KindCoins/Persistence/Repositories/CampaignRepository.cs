@@ -15,7 +15,10 @@ public class CampaignRepository : BaseRepository , ICampaignRepository
     
     public async Task<IEnumerable<Campaign>> ListAsync()
     {
-        return await _context.Campaigns.ToListAsync();
+        return await _context.Campaigns
+            .Include(p=>p.User)
+            .Include(p=>p.TypeOfDonation)
+            .ToListAsync();
     }
     
     public async Task AddAsync(Campaign campaign)
@@ -26,6 +29,8 @@ public class CampaignRepository : BaseRepository , ICampaignRepository
     public async Task<Campaign> FindByIdAsync(int campaignId)
     {
         return await _context.Campaigns
+            .Include(p=>p.User)
+            .Include(p=>p.TypeOfDonation)
             .FirstOrDefaultAsync(p => p.Id == campaignId);
     }
     
@@ -33,6 +38,8 @@ public class CampaignRepository : BaseRepository , ICampaignRepository
     {
         return await _context.Campaigns
             .Where(p => p.UserId == userId)
+            .Include(p=>p.User)
+            .Include(p=>p.TypeOfDonation)
             .ToListAsync();
     }
 

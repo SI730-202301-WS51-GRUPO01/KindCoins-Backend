@@ -21,11 +21,10 @@ public class CampaignsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<SaveCampaignResource>> GetAllAsync()
+    public async Task<IEnumerable<CampaignResource>> GetAllAsync()
     {
         var campaigns = await _campaignService.ListAsync();
-        var resources = _mapper.Map<IEnumerable<Campaign>,
-            IEnumerable<SaveCampaignResource>>(campaigns);
+        var resources = _mapper.Map<IEnumerable<Campaign>, IEnumerable<CampaignResource>>(campaigns);
         return resources;
     }
     
@@ -41,7 +40,7 @@ public class CampaignsController : ControllerBase
         if (!result.Success)
             return BadRequest(result.Message);
         
-        var campaignResource = _mapper.Map<Campaign, SaveCampaignResource>(result.Resource);
+        var campaignResource = _mapper.Map<Campaign, CampaignResource>(result.Resource);
         return Ok(campaignResource);
     }
     
@@ -57,7 +56,7 @@ public class CampaignsController : ControllerBase
         if (!result.Success)
             return BadRequest(result.Message);
         
-        var campaignResource = _mapper.Map<Campaign, SaveCampaignResource>(result.Resource);
+        var campaignResource = _mapper.Map<Campaign, CampaignResource>(result.Resource);
         return Ok(campaignResource);
     }
     
@@ -67,7 +66,7 @@ public class CampaignsController : ControllerBase
         var result = await _campaignService.DeleteAsync(id);
         if (!result.Success)
             return BadRequest(result.Message);
-        var campaignResource = _mapper.Map<Campaign, SaveCampaignResource>(result.Resource);
+        var campaignResource = _mapper.Map<Campaign, CampaignResource>(result.Resource);
         return Ok(campaignResource);
     }
 }

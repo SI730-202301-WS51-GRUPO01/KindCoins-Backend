@@ -1,4 +1,6 @@
-﻿namespace KindCoins_Backend.KindCoins.Domain.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace KindCoins_Backend.KindCoins.Domain.Models;
 
 public class User
 {
@@ -11,12 +13,19 @@ public class User
     public string Password { get; set; }
     
     //Relationships
+    [JsonIgnore]
     public IList<Post> Posts { get; set; } = new List<Post>();
+    [JsonIgnore]
     public IList<Comment> Comments { get; set; } = new List<Comment>();
+    [JsonIgnore]
     public IList<Campaign> Campaigns { get; set; } = new List<Campaign>();
+    [JsonIgnore]
     public IList<Donation> Donations { get; set; } = new List<Donation>();
+    [JsonIgnore]
     public IList<PaymentData> PaymentDatas { get; set; } = new List<PaymentData>();
     
     public int SuscriptionPlanId { get; set; }
+    
+    [JsonIgnore]
     public SuscriptionPlan SuscriptionPlan { get; set; }
 }

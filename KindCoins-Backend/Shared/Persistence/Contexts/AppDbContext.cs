@@ -6,23 +6,40 @@ namespace KindCoins_Backend.Shared.Persistence.Contexts;
 
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions options) : base(options)
-    {
-    }
+
 
     public DbSet<User> Users { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
     public DbSet<TypeOfDonation> TypeOfDonations { get; set; }
     public DbSet<SuscriptionPlan> SuscriptionPlans { get; set; }
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+    }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         {
             base.OnModelCreating(builder);
+            
             builder.Entity<User>().ToTable("User");
             builder.Entity<User>().HasKey(p => p.Id);
             builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<User>().Property(p => p.FirstName).IsRequired().HasMaxLength(30);
             builder.Entity<User>().Property(p => p.LastName).IsRequired().HasMaxLength(30);
+            builder.Entity<User>().Property(p => p.DNI).IsRequired().HasMaxLength(8);
+            builder.Entity<User>().Property(p => p.Phone).IsRequired().HasMaxLength(9);
+            builder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(30);
+            builder.Entity<User>().Property(p => p.Password).IsRequired().HasMaxLength(15);
+            
+            // Relationships SuscriptionPlan with User
+            builder.Entity<SuscriptionPlan>()
+                .HasMany(p => p.Users)
+                .WithOne(p => p.SuscriptionPlan)
+                .HasForeignKey(p => p.SuscriptionPlanId);
+            
+            builder.Entity<SuscriptionPlan>().ToTable("SuscriptionPlan");
+            builder.Entity<SuscriptionPlan>().HasKey(p => p.Id);
+            builder.Entity<SuscriptionPlan>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<SuscriptionPlan>().Property(p => p.Plan).IsRequired().HasMaxLength(50);
  
             // Relationships User with Campaign
             builder.Entity<User>()
@@ -52,16 +69,9 @@ public class AppDbContext : DbContext
                 .WithOne(p => p.TypeOfDonation)
                 .HasForeignKey(p => p.TypeOfDonationId);
             
-            builder.Entity<SuscriptionPlan>().ToTable("SuscriptionPlan");
-            builder.Entity<SuscriptionPlan>().HasKey(p => p.Id);
-            builder.Entity<SuscriptionPlan>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<SuscriptionPlan>().Property(p => p.Plan).IsRequired().HasMaxLength(50);
+
             
-            // Relationships with User
-            builder.Entity<SuscriptionPlan>()
-                .HasMany(p => p.Users)
-                .WithOne(p => p.SuscriptionPlan)
-                .HasForeignKey(p => p.SuscriptionPlanId);
+
 
             // Apply Snake Case Naming Convention
  

@@ -29,7 +29,10 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 //Dependency Injection Configuration
+
+//User
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 //Campaign
 builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();

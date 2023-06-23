@@ -1,4 +1,6 @@
-﻿namespace KindCoins_Backend.KindCoins.Domain.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace KindCoins_Backend.KindCoins.Domain.Models;
 
 public class Post
 {
@@ -13,5 +15,6 @@ public class Post
     
     public int UserId { get; set; }
     public User User { get; set; }
+    [JsonIgnore]
     public IList<Comment> Comments { get; set; } = new List<Comment>();
 }

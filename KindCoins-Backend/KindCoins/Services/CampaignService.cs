@@ -24,12 +24,7 @@ public class CampaignService : ICampaignService
     {
         return await _campaignRepository.ListAsync();
     }
-
-    public async Task<IEnumerable<Campaign>> ListByUserIdAsync(int userId)
-    {
-        return await _campaignRepository.FindByUserIdAsync(userId);
-    }
-
+    
     public async Task<CampaignResponse> SaveAsync(Campaign campaign)
     {
         // Validate UserId

@@ -25,7 +25,7 @@ public class SuscriptionPlanRepository : BaseRepository, ISuscriptionPlanReposit
     public async Task<SuscriptionPlan> FindByIdAsync(int id)
     {
         return await _context.SuscriptionPlans
-            .FirstOrDefaultAsync(p => p.Id == id);
+            .FindAsync(id);;
     }
     
     public async Task<SuscriptionPlan> FindByPlanAsync(string plan)
