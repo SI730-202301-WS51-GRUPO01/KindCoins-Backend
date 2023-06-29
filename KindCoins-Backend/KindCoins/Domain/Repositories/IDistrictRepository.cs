@@ -8,6 +8,7 @@ public interface IDistrictRepository
     Task AddAsync(District district);
     Task<District> FindByIdAsync(int districtId);
     Task<IEnumerable<District>> FindByDepartmentIdAsync(int departmentId);
+    Task<District> FindByNameAsync(string districtName);
     void Update(District district);
     void Remove(District district);
 }

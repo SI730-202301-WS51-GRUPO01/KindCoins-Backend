@@ -6,5 +6,5 @@ public class DepartmentResource
 {
     public int Id { get; set; }
     public string DepartmentName { get; set; }
-    public CountryResource Country { get; set; }
+    public Country Country { get; set; }
 }

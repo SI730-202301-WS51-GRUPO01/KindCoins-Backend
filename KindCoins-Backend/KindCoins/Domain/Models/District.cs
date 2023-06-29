@@ -8,7 +8,9 @@ public class District
     public string DistrictName { get; set; }
     //Relationships
     public int DepartmentId { get; set; }
+    [JsonIgnore]
     public Department Department { get; set; }
+    
     [JsonIgnore]
     public IList<Address> Addresses { get; set; } = new List<Address>();
 }
