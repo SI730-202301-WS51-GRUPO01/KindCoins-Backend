@@ -36,6 +36,14 @@ public class AddressRepository: BaseRepository, IAddressRepository
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<Address>> FindByDistrictIdAsync(int districtId)
+    {
+        return await _context.Addresses
+            .Where(p => p.DistrictId == districtId)
+            .Include(p => p.District)
+            .ToListAsync();
+    }
+
     public void Update(Address address)
     {
         _context.Addresses.Update(address);
