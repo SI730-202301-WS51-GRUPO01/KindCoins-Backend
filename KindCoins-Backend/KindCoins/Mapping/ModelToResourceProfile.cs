@@ -12,5 +12,6 @@ public class ModelToResourceProfile : Profile
         CreateMap<Campaign, CampaignResource>();
         CreateMap<TypeOfDonation, TypeOfDonationResource>();
         CreateMap<SuscriptionPlan, SuscriptionPlanResource>();
+        CreateMap<BankAccount, BankAccountResource>();
     }
 }

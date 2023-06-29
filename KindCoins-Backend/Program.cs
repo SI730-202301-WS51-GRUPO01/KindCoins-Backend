@@ -46,6 +46,10 @@ builder.Services.AddScoped<ITypeOfDonationService, TypeOfDonationService>();
 builder.Services.AddScoped<ISuscriptionPlanRepository, SuscriptionPlanRepository>();
 builder.Services.AddScoped<ISuscriptionPlanService, SuscriptionPlanService>();
 
+//BankAccount
+builder.Services.AddScoped<IBankAccountRepository, BankAccountRepository>();
+builder.Services.AddScoped<IBankAccountService, BankAccountService>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //AutoMapper Configuration
