@@ -15,6 +15,7 @@ public class AppDbContext : DbContext
     public DbSet<Campaign> Campaigns { get; set; }
     public DbSet<TypeOfDonation> TypeOfDonations { get; set; }
     public DbSet<SuscriptionPlan> SuscriptionPlans { get; set; }
+    public DbSet<BankAccount> BankAccounts { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
@@ -110,12 +111,22 @@ public class AppDbContext : DbContext
             builder.Entity<TypeOfDonation>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<TypeOfDonation>().Property(p => p.TypeDonation).IsRequired().HasMaxLength(50);
             
-                        
             // Relationships TypeOfDonation with Campaign
             builder.Entity<TypeOfDonation>()
                 .HasMany(p => p.Campaigns)
                 .WithOne(p => p.TypeOfDonation)
                 .HasForeignKey(p => p.TypeOfDonationId);
+            
+            builder.Entity<BankAccount>().ToTable("BankAccount");
+            builder.Entity<BankAccount>().HasKey(p => p.Id);
+            builder.Entity<BankAccount>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<BankAccount>().Property(p => p.AccountNumber).IsRequired().HasMaxLength(15);
+            
+            // Relationships BankAccount with Campaign
+            builder.Entity<Campaign>()
+                .HasMany(p => p.BankAccounts)
+                .WithOne(p => p.Campaign)
+                .HasForeignKey(p => p.CampaignId);
             
 
             

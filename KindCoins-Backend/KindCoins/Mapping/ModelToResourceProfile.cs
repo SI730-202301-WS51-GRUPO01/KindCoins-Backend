@@ -12,9 +12,11 @@ public class ModelToResourceProfile : Profile
         CreateMap<Campaign, CampaignResource>();
         CreateMap<TypeOfDonation, TypeOfDonationResource>();
         CreateMap<SuscriptionPlan, SuscriptionPlanResource>();
+        CreateMap<BankAccount, BankAccountResource>();
         CreateMap<Address, AddressResource>();
         CreateMap<District, DistrictResource>();
         CreateMap<Country, CountryResource>();
         CreateMap<Department, DepartmentResource>();
+
     }
 }
