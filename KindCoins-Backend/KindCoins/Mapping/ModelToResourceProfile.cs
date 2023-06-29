@@ -13,5 +13,10 @@ public class ModelToResourceProfile : Profile
         CreateMap<TypeOfDonation, TypeOfDonationResource>();
         CreateMap<SuscriptionPlan, SuscriptionPlanResource>();
         CreateMap<BankAccount, BankAccountResource>();
+        CreateMap<Address, AddressResource>();
+        CreateMap<District, DistrictResource>();
+        CreateMap<Country, CountryResource>();
+        CreateMap<Department, DepartmentResource>();
+
     }
 }
