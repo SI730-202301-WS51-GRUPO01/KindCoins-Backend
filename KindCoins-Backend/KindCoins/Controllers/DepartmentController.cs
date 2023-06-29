@@ -29,12 +29,12 @@ public class DepartmentController: ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> PostAsync([FromBody] DepartmentResource resource)
+    public async Task<IActionResult> PostAsync([FromBody] SaveDepartmentResource resource)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState.GetErrorMessages());
 
-        var department = _mapper.Map<DepartmentResource, Department>(resource);
+        var department = _mapper.Map<SaveDepartmentResource, Department>(resource);
         var result = await _departmentService.SaveAsync(department);
         
         if (!result.Success)
@@ -45,12 +45,12 @@ public class DepartmentController: ControllerBase
     }
     
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutAsync(int id, [FromBody] DepartmentResource resource)
+    public async Task<IActionResult> PutAsync(int id, [FromBody] SaveDepartmentResource resource)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState.GetErrorMessages());
 
-        var department = _mapper.Map<DepartmentResource, Department>(resource);
+        var department = _mapper.Map<SaveDepartmentResource, Department>(resource);
         var result = await _departmentService.UpdateAsync(id, department);
         
         if (!result.Success)
