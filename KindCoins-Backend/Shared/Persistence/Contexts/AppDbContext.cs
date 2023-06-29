@@ -6,8 +6,8 @@ namespace KindCoins_Backend.Shared.Persistence.Contexts;
 
 public class AppDbContext : DbContext
 {
-
-
+    
+    public DbSet<Address> Addresses { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Campaign> Campaigns { get; set; }
     public DbSet<TypeOfDonation> TypeOfDonations { get; set; }
@@ -19,6 +19,12 @@ public class AppDbContext : DbContext
     {
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Address>().ToTable("Address");
+            builder.Entity<Address>().HasKey(p => p.Id);
+            builder.Entity<Address>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Address>().Property(p => p.AddressName).IsRequired().HasMaxLength(40);
+            builder.Entity<Address>().Property(p => p.Reference).IsRequired().HasMaxLength(40);
             
             builder.Entity<User>().ToTable("User");
             builder.Entity<User>().HasKey(p => p.Id);
@@ -29,6 +35,12 @@ public class AppDbContext : DbContext
             builder.Entity<User>().Property(p => p.Phone).IsRequired().HasMaxLength(9);
             builder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(30);
             builder.Entity<User>().Property(p => p.Password).IsRequired().HasMaxLength(15);
+            
+            //Relationships Address with Campaign
+            builder.Entity<Campaign>()
+                .HasMany(p => p.Addresses)
+                .WithOne(p => p.Campaign)
+                .HasForeignKey(p => p.CampaignId);
             
             // Relationships SuscriptionPlan with User
             builder.Entity<SuscriptionPlan>()

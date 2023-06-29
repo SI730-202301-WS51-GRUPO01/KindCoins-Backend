@@ -1,6 +1,12 @@
-﻿namespace KindCoins_Backend.KindCoins.Domain.Services;
+﻿using KindCoins_Backend.KindCoins.Domain.Models;
+using KindCoins_Backend.KindCoins.Domain.Services.Communication;
 
-public class IAddressService
+namespace KindCoins_Backend.KindCoins.Domain.Services;
+
+public interface IAddressService 
 {
-    
+    Task<IEnumerable<Address>> ListAsync();
+    Task<AddressResponse> SaveAsync(Address address);
+    Task<AddressResponse> UpdateAsync(int id, Address address);
+    Task<AddressResponse> DeleteAsync(int id);
 }
