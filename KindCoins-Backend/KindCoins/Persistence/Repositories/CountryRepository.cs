@@ -28,6 +28,12 @@ public class CountryRepository: BaseRepository, ICountryRepository
         return await _context.Countries
             .FirstOrDefaultAsync(p => p.Id == countryId);
     }
+    
+    public async Task<Country> FindByNameAsync(string countryName)
+    {
+        return await _context.Countries
+            .FirstOrDefaultAsync(p => p.CountryName == countryName);
+    }
 
     public void Update(Country country)
     {

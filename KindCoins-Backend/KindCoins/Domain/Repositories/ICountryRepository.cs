@@ -9,4 +9,6 @@ public interface ICountryRepository
     Task<Country> FindByIdAsync(int countryId);
     void Update(Country country);
     void Remove(Country country);
+    
+    Task<Country> FindByNameAsync(string countryName);
 }
