@@ -15,11 +15,11 @@ public class Campaign
 
     //Relationships
     public int UserId { get; set; }
-    
+    [JsonIgnore]
     public User User { get; set; }
     
     public int TypeOfDonationId { get; set; }
-    
+    [JsonIgnore]
     public TypeOfDonation TypeOfDonation { get; set; }
     
     [JsonIgnore]

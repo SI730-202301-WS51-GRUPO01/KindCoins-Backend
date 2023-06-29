@@ -14,6 +14,7 @@ public class AddressRepository: BaseRepository, IAddressRepository
     public async Task<IEnumerable<Address>> ListAsync()
     {
         return await _context.Addresses
+            .Include(p=>p.District)
             .Include(p=>p.Campaign)
             .ToListAsync();
     }
@@ -24,6 +25,7 @@ public class AddressRepository: BaseRepository, IAddressRepository
     public async Task<Address> FindByIdAsync(int addressId)
     {
         return await _context.Addresses
+            .Include(p=>p.District)
             .Include(p=>p.Campaign)
             .FirstOrDefaultAsync(p => p.Id == addressId);
     }
