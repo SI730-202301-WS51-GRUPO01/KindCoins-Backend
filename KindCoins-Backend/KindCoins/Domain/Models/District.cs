@@ -1,4 +1,6 @@
-﻿namespace KindCoins_Backend.KindCoins.Domain.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace KindCoins_Backend.KindCoins.Domain.Models;
 
 public class District
 {
@@ -7,5 +9,6 @@ public class District
     //Relationships
     public int DepartmentId { get; set; }
     public Department Department { get; set; }
+    [JsonIgnore]
     public IList<Address> Addresses { get; set; } = new List<Address>();
 }

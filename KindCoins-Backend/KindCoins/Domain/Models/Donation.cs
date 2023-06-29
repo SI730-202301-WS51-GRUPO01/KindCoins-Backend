@@ -9,6 +9,6 @@ public class Donation
     public Campaign Campaign { get; set; }
     public int UserId { get; set; }
     public User User { get; set; }
-    public int PaymentDataId { get; set; }
-    public PaymentData PaymentData { get; set; }
+    //public int PaymentDataId { get; set; }
+    //public PaymentData PaymentData { get; set; }
 }

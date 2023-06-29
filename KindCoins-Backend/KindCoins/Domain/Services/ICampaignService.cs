@@ -6,7 +6,6 @@ namespace KindCoins_Backend.KindCoins.Domain.Services;
 public interface ICampaignService
 {
     Task<IEnumerable<Campaign>> ListAsync();
-    Task<IEnumerable<Campaign>> ListByUserIdAsync(int userId);
     Task<CampaignResponse> SaveAsync(Campaign campaign);
     Task<CampaignResponse> UpdateAsync(int id, Campaign campaign);
     Task<CampaignResponse> DeleteAsync(int id);

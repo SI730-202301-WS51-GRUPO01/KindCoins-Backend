@@ -3,6 +3,7 @@ using KindCoins_Backend.KindCoins.Domain.Repositories;
 using KindCoins_Backend.KindCoins.Domain.Services;
 using KindCoins_Backend.KindCoins.Mapping;
 using KindCoins_Backend.KindCoins.Persistence.Repositories;
+using KindCoins_Backend.KindCoins.Services;
 using KindCoins_Backend.Shared.Persistence.Contexts;
 using KindCoins_Backend.Shared.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -28,8 +29,23 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 //Dependency Injection Configuration
+
+//User
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<ICampaignService, CampaignService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+//Campaign
+builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
+builder.Services.AddScoped<ICampaignService, CampaignService>();
+
+//TypeOfDonation
+builder.Services.AddScoped<ITypeOfDonationRepository, TypeOfDonationRepository>();
+builder.Services.AddScoped<ITypeOfDonationService, TypeOfDonationService>();
+
+//SuscriptionPlan
+builder.Services.AddScoped<ISuscriptionPlanRepository, SuscriptionPlanRepository>();
+builder.Services.AddScoped<ISuscriptionPlanService, SuscriptionPlanService>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //AutoMapper Configuration

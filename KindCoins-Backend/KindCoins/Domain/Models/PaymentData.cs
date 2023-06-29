@@ -14,6 +14,5 @@ public class PaymentData
     public TypeOfCreditCard TypeOfCreditCard { get; set; }
     public int UserId { get; set; }
     public User User { get; set; }
-    public IList<Donation> Donations { get; set; } = new List<Donation>();
-    public IList<Campaign> Campaigns { get; set; } = new List<Campaign>();
+    //public IList<Donation> Donations { get; set; } = new List<Donation>();
 }

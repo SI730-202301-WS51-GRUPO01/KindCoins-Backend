@@ -8,7 +8,13 @@ public class ModelToResourceProfile : Profile
 {
     public ModelToResourceProfile()
     {
-        CreateMap<User, SaveUserResource>();
-        CreateMap<Campaign, SaveCampaignResource>();
+        CreateMap<User,UserResource>();
+        CreateMap<Campaign, CampaignResource>();
+        CreateMap<TypeOfDonation, TypeOfDonationResource>();
+        CreateMap<SuscriptionPlan, SuscriptionPlanResource>();
+        CreateMap<Address, AddressResource>();
+        CreateMap<District, DistrictResource>();
+        CreateMap<Country, CountryResource>();
+        CreateMap<Department, DepartmentResource>();
     }
 }
