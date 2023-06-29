@@ -29,12 +29,12 @@ public class CountryController: ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> PostAsync([FromBody] CountryResource resource)
+    public async Task<IActionResult> PostAsync([FromBody] SaveCountryResource resource)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState.GetErrorMessages());
 
-        var country = _mapper.Map<CountryResource, Country>(resource);
+        var country = _mapper.Map<SaveCountryResource, Country>(resource);
         var result = await _countryService.SaveAsync(country);
         
         if (!result.Success)
@@ -45,12 +45,12 @@ public class CountryController: ControllerBase
     }
     
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutAsync(int id, [FromBody] CountryResource resource)
+    public async Task<IActionResult> PutAsync(int id, [FromBody] SaveCountryResource resource)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState.GetErrorMessages());
 
-        var country = _mapper.Map<CountryResource, Country>(resource);
+        var country = _mapper.Map<SaveCountryResource, Country>(resource);
         var result = await _countryService.UpdateAsync(id, country);
         
         if (!result.Success)

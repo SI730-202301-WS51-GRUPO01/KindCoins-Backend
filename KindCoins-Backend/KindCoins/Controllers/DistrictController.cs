@@ -29,12 +29,12 @@ public class DistrictController: ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> PostAsync([FromBody] DistrictResource resource)
+    public async Task<IActionResult> PostAsync([FromBody] SaveDistrictResource resource)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState.GetErrorMessages());
 
-        var district = _mapper.Map<DistrictResource, District>(resource);
+        var district = _mapper.Map<SaveDistrictResource, District>(resource);
         var result = await _districtService.SaveAsync(district);
         
         if (!result.Success)
@@ -45,12 +45,12 @@ public class DistrictController: ControllerBase
     }
     
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutAsync(int id, [FromBody] DistrictResource resource)
+    public async Task<IActionResult> PutAsync(int id, [FromBody] SaveDistrictResource resource)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState.GetErrorMessages());
 
-        var district = _mapper.Map<DistrictResource, District>(resource);
+        var district = _mapper.Map<SaveDistrictResource, District>(resource);
         var result = await _districtService.UpdateAsync(id, district);
         
         if (!result.Success)

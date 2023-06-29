@@ -1,12 +1,14 @@
 ﻿using KindCoins_Backend.KindCoins.Domain.Models;
 using KindCoins_Backend.KindCoins.Domain.Repositories;
+using KindCoins_Backend.KindCoins.Domain.Services;
 using KindCoins_Backend.KindCoins.Domain.Services.Communication;
 
 namespace KindCoins_Backend.KindCoins.Services;
 
-public class DepartmentService
+public class DepartmentService : IDepartmentService
 {
-     private readonly IDepartmentRepository _departmentRepository;
+    private readonly IDepartmentRepository _departmentRepository;
+    private readonly ICountryRepository _countryRepository;
     private readonly IUnitOfWork _unitOfWork;
     
     public async Task<IEnumerable<Department>> ListAsync()
@@ -14,14 +16,24 @@ public class DepartmentService
         return await _departmentRepository.ListAsync();
     }
     
-    public DepartmentService(IDepartmentRepository departmentRepository, IUnitOfWork unitOfWork)
+    public DepartmentService(IDepartmentRepository departmentRepository,ICountryRepository countryRepository, IUnitOfWork unitOfWork)
     {
         _departmentRepository = departmentRepository;
+        _countryRepository = countryRepository;
         _unitOfWork = unitOfWork;
     }
 
     public async Task<DepartmentResponse> SaveAsync(Department department)
     {
+        //Validate if the department exists
+        var existingDepartment = await _departmentRepository.FindByNameAsync(department.DepartmentName);
+        if (existingDepartment != null)
+            return new DepartmentResponse("Department already exists.");
+        //Validate if the country exists
+        var existingCountry = await _countryRepository.FindByIdAsync(department.CountryId);
+        if (existingCountry == null)
+            return new DepartmentResponse("Invalid country.");
+        
         try
         {
             await _departmentRepository.AddAsync(department);

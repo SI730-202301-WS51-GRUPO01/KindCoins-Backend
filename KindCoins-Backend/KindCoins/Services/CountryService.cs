@@ -23,6 +23,10 @@ public class CountryService: ICountryService
 
     public async Task<CountryResponse> SaveAsync(Country country)
     {
+        //Validate if countryName already exists
+        var existingCountry = await _countryRepository.FindByNameAsync(country.CountryName);
+        if (existingCountry != null) return new CountryResponse("Country already exists");
+        
         try
         {
             await _countryRepository.AddAsync(country);

@@ -35,6 +35,13 @@ public class DistrictRepository: BaseRepository, IDistrictRepository
             .Include(p=>p.Department)
             .ToListAsync();
     }
+    
+    public async Task<District> FindByNameAsync(string districtName)
+    {
+        return await _context.Districts
+            .Include(p=>p.Department)
+            .FirstOrDefaultAsync(p => p.DistrictName == districtName);
+    }
 
     public void Update(District district)
     {

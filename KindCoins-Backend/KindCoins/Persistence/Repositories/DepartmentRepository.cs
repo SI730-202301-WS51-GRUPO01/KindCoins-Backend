@@ -35,6 +35,12 @@ public class DepartmentRepository: BaseRepository, IDepartmentRepository
             .Include(p=>p.Country)
             .ToListAsync();
     }
+    
+    public async Task<Department> FindByNameAsync(string departmentName)
+    {
+        return await _context.Departments
+            .FirstOrDefaultAsync(p => p.DepartmentName == departmentName);
+    }
 
     public void Update(Department department)
     {

@@ -8,6 +8,7 @@ public interface IDepartmentRepository
     Task AddAsync(Department department);
     Task<Department> FindByIdAsync(int departmentId);
     Task<IEnumerable<Department>> FindByCountryIdAsync(int countryId);
+    Task<Department> FindByNameAsync(string departmentName);
     void Update(Department department);
     void Remove(Department department);
 }

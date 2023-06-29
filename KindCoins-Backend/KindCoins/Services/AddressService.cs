@@ -8,21 +8,33 @@ namespace KindCoins_Backend.KindCoins.Services;
 public class AddressService: IAddressService
 {
     private readonly IAddressRepository _addressRepository;
+    private readonly ICampaignRepository _campaignRepository;
+    private readonly IDistrictRepository _districtRepository;
     private readonly IUnitOfWork _unitOfWork;
-
+    public AddressService(IAddressRepository addressRepository,ICampaignRepository campaignRepository,IDistrictRepository districtRepository, IUnitOfWork unitOfWork)
+    {
+        _addressRepository = addressRepository;
+        _campaignRepository = campaignRepository;
+        _districtRepository = districtRepository;
+        _unitOfWork = unitOfWork;
+    }
     public async Task<IEnumerable<Address>> ListAsync()
     {
         return await _addressRepository.ListAsync();
     }
-    
-    public AddressService(IAddressRepository addressRepository, IUnitOfWork unitOfWork)
-    {
-        _addressRepository = addressRepository;
-        _unitOfWork = unitOfWork;
-    }
 
     public async Task<AddressResponse> SaveAsync(Address address)
     {
+        //Validate if campaign exists
+        var existingCampaign = await _campaignRepository.FindByIdAsync(address.CampaignId);
+        if (existingCampaign == null)
+            return new AddressResponse("Invalid campaign");
+        
+        //Validate if district exists
+        var existingDistrict = await _districtRepository.FindByIdAsync(address.DistrictId);
+        if (existingDistrict == null)
+            return new AddressResponse("Invalid district");
+        
         try
         {
             await _addressRepository.AddAsync(address);
