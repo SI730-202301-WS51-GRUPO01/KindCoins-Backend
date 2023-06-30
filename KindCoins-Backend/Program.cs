@@ -17,6 +17,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var myOrigins = "_myOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: myOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://127.0.0.1:5173");
+        });
+});
+
 //Add Database Connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(
@@ -75,6 +85,8 @@ builder.Services.AddAutoMapper(
     typeof(ResourceToModelProfile));
 
 var app = builder.Build();
+
+app.UseCors(myOrigins);
 
 //Validation for ensuring Database Objects are created
 using (var scope = app.Services.CreateScope())
