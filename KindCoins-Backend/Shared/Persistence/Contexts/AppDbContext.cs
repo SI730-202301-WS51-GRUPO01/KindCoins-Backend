@@ -100,10 +100,10 @@ public class AppDbContext : DbContext
             builder.Entity<Campaign>().HasKey(p => p.Id);
             builder.Entity<Campaign>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Campaign>().Property(p => p.Name).IsRequired().HasMaxLength(500);
-            builder.Entity<Campaign>().Property(p => p.Slogan).IsRequired().HasMaxLength(10000);
-            builder.Entity<Campaign>().Property(p => p.HeaderPhoto).IsRequired().HasMaxLength(10000);
-            builder.Entity<Campaign>().Property(p => p.AditionalPhoto).IsRequired().HasMaxLength(10000);
-            builder.Entity<Campaign>().Property(p => p.Description).HasMaxLength(100000);
+            builder.Entity<Campaign>().Property(p => p.Slogan).IsRequired().HasMaxLength(1000);
+            builder.Entity<Campaign>().Property(p => p.HeaderPhoto).IsRequired().HasMaxLength(1000);
+            builder.Entity<Campaign>().Property(p => p.AditionalPhoto).IsRequired().HasMaxLength(1000);
+            builder.Entity<Campaign>().Property(p => p.Description).HasMaxLength(1000);
             builder.Entity<Campaign>().Property(p => p.Goal).IsRequired();
 
             builder.Entity<TypeOfDonation>().ToTable("TypeOfDonation");
