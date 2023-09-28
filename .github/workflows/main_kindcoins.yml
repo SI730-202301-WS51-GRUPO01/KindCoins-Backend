@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'kindcoins'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8860F9F83F834A7F9A65A688D49867E9 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0E16452E6015446DB00000D5B4D15CF2 }}
           package: .
