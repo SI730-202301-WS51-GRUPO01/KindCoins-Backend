@@ -20,6 +20,11 @@ public class UserService : IUserService
     {
         return await _userRepository.ListAsync();
     }
+    
+    public async Task<User> GetByIdAsync(int id)
+    {
+        return await _userRepository.FindByIdAsync(id);
+    }
 
     public async Task<UserResponse> SaveAsync(User user)
     {
@@ -79,7 +84,7 @@ public class UserService : IUserService
     {
         var existingUser = await _userRepository.FindByIdAsync(id);
         if (existingUser == null)
-            return new UserResponse("Category not found.");
+            return new UserResponse("User not found.");
         try
         {
             _userRepository.Remove(existingUser);
@@ -92,6 +97,4 @@ public class UserService : IUserService
             return new UserResponse($"An error occurred while deleting the user: {e.Message}");
         }
     }
-
-
 }
