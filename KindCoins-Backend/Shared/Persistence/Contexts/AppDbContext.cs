@@ -22,6 +22,8 @@ public class AppDbContext : DbContext
     
     public DbSet<TypeOfCreditCard> TypeOfCreditCards { get; set; }
     
+    public DbSet<PaymentData> PaymentDatas { get; set; }
+
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
@@ -177,6 +179,27 @@ public class AppDbContext : DbContext
             builder.Entity<TypeOfCreditCard>().HasKey(p => p.Id);
             builder.Entity<TypeOfCreditCard>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<TypeOfCreditCard>().Property(p => p.Name);
+
+            builder.Entity<PaymentData>().ToTable("PaymentData");
+            builder.Entity<PaymentData>().HasKey(p => p.Id);
+            builder.Entity<PaymentData>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<PaymentData>().Property(p => p.CardNumber);
+            builder.Entity<PaymentData>().Property(p => p.CVV);
+            builder.Entity<PaymentData>().Property(p => p.FirstName);
+            builder.Entity<PaymentData>().Property(p => p.LastName);
+            builder.Entity<PaymentData>().Property(p => p.Email);
+            
+            //Relationships Payment data with User
+            builder.Entity<User>()
+                .HasMany(p => p.PaymentDatas)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserId);
+            
+            //Relationships payment data with Type of credit card
+            builder.Entity<TypeOfCreditCard>()
+                .HasMany(p => p.PaymentDatas)
+                .WithOne(p => p.TypeOfCreditCard)
+                .HasForeignKey(p => p.TypeOfCreditCardId);
             
             // Apply Snake Case Naming Convention
  

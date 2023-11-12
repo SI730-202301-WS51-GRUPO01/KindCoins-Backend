@@ -91,6 +91,10 @@ builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<ITypeOfCreditCardRepository, TypeOfCreditCardRepository>();
 builder.Services.AddScoped<ITypeOfCreditCardService, TypeOfCreditCardService>();
 
+//Payment data
+builder.Services.AddScoped<IPaymentDataRepository, PaymentDataRepository>();
+builder.Services.AddScoped<IPaymentDataService, PaymentDataService>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //AutoMapper Configuration

@@ -20,5 +20,6 @@ public class ResourceToModelProfile : Profile
         CreateMap<SavePostResource, Post>();
         CreateMap<DonationResource, Donation>();
         CreateMap<TypeOfCreditCardResource, TypeOfCreditCard>();
+        CreateMap<PaymentDataResource, PaymentData>();
     }
 }
