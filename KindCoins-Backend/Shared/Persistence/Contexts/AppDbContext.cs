@@ -1,4 +1,5 @@
 ﻿using KindCoins_Backend.KindCoins.Domain.Models;
+using KindCoins_Backend.KindCoins.Domain.Services.Communication;
 using KindCoins_Backend.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ public class AppDbContext : DbContext
     public DbSet<SuscriptionPlan> SuscriptionPlans { get; set; }
     public DbSet<BankAccount> BankAccounts { get; set; }
     public DbSet<Post> Posts { get; set; }
+    public DbSet<Donation> Donations { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
@@ -24,15 +26,6 @@ public class AppDbContext : DbContext
     {
         {
             base.OnModelCreating(builder);
-
-            builder.Entity<Post>().ToTable("Post");
-            builder.Entity<Post>().HasKey(p => p.Id);
-            builder.Entity<Post>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Post>().Property(p => p.Comment).IsRequired().HasMaxLength(500);
-            builder.Entity<Post>().Property(p => p.Url).IsRequired().HasMaxLength(500);
-            builder.Entity<Post>().Property(p => p.Photo).IsRequired().HasMaxLength(1000);
-            builder.Entity<Post>().Property(p => p.Likes).IsRequired().HasMaxLength(500);
-            builder.Entity<Post>().Property(p => p.Shares).IsRequired().HasMaxLength(500);
 
             builder.Entity<Address>().ToTable("Address");
             builder.Entity<Address>().HasKey(p => p.Id);
@@ -66,6 +59,15 @@ public class AppDbContext : DbContext
             builder.Entity<User>().Property(p => p.Photo).HasMaxLength(500);
             builder.Entity<User>().Property(p => p.Password).IsRequired().HasMaxLength(15);
             
+            builder.Entity<Post>().ToTable("Post");
+            builder.Entity<Post>().HasKey(p => p.Id);
+            builder.Entity<Post>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Post>().Property(p => p.Comment).IsRequired().HasMaxLength(500);
+            builder.Entity<Post>().Property(p => p.Url).IsRequired().HasMaxLength(500);
+            builder.Entity<Post>().Property(p => p.Photo).IsRequired().HasMaxLength(1000);
+            builder.Entity<Post>().Property(p => p.Likes).IsRequired().HasMaxLength(500);
+            builder.Entity<Post>().Property(p => p.Shares).IsRequired().HasMaxLength(500);
+
             //Relationships Post with User
             builder.Entity<User>()
                 .HasMany(p => p.Posts)
@@ -145,9 +147,28 @@ public class AppDbContext : DbContext
                 .WithOne(p => p.Campaign)
                 .HasForeignKey(p => p.CampaignId);
             
-
+            builder.Entity<Donation>().ToTable("Donation");
+            builder.Entity<Donation>().HasKey(p => p.Id);
+            builder.Entity<Donation>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Donation>().Property(p => p.Amount);
             
-
+            //Relationships Donation with User
+            builder.Entity<User>()
+                .HasMany(p => p.Donations)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserId);
+            
+            //Relationships Donation with Campaign
+            builder.Entity<Campaign>()
+                .HasMany(p => p.Donations)
+                .WithOne(p => p.Campaign)
+                .HasForeignKey(p => p.CampaignId);
+            
+            //Relationships Donation with Type of Donations
+            builder.Entity<TypeOfDonation>()
+                .HasMany(p => p.Donations)
+                .WithOne(p => p.TypeOfDonation)
+                .HasForeignKey(p => p.TypeOfDonationId);
 
             // Apply Snake Case Naming Convention
  

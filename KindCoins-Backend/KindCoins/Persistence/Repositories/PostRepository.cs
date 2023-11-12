@@ -20,11 +20,11 @@ public class PostRepository: BaseRepository, IPostRepository
 
     }
 
-    public async Task<Post> FindByIdAsync(int userId)
+    public async Task<Post> FindByIdAsync(int postId)
     {
         return await _context.Posts
             .Include(p => p.User)
-            .FirstOrDefaultAsync(p => p.Id == userId);
+            .FirstOrDefaultAsync(p => p.Id == postId);
     }
 
     public async Task<IEnumerable<Post>> FindByUserIdAsync(int userId)

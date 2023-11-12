@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections;
+using System.Text.Json.Serialization;
 
 namespace KindCoins_Backend.KindCoins.Domain.Models;
 
@@ -9,4 +10,6 @@ public class TypeOfDonation
     //Relationships
     [JsonIgnore]
     public IList<Campaign> Campaigns { get; set; } = new List<Campaign>();
+
+    [JsonIgnore] public IList<Donation> Donations { get; set; } = new List<Donation>();
 }

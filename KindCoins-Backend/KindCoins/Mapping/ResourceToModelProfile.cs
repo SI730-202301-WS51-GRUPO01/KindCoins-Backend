@@ -18,5 +18,6 @@ public class ResourceToModelProfile : Profile
         CreateMap<SaveDepartmentResource, Department>();
         CreateMap<SaveDistrictResource, District>();
         CreateMap<SavePostResource, Post>();
+        CreateMap<DonationResource, Donation>();
     }
 }
