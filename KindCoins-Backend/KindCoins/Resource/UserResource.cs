@@ -13,6 +13,4 @@ public class UserResource
     public string Password { get; set; }
     
     public SuscriptionPlanResource SuscriptionPlan { get; set; }
-    
-    
 }

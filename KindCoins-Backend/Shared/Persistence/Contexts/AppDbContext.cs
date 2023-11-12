@@ -16,6 +16,7 @@ public class AppDbContext : DbContext
     public DbSet<TypeOfDonation> TypeOfDonations { get; set; }
     public DbSet<SuscriptionPlan> SuscriptionPlans { get; set; }
     public DbSet<BankAccount> BankAccounts { get; set; }
+    public DbSet<Post> Posts { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
@@ -23,6 +24,15 @@ public class AppDbContext : DbContext
     {
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Post>().ToTable("Post");
+            builder.Entity<Post>().HasKey(p => p.Id);
+            builder.Entity<Post>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Post>().Property(p => p.Comment).IsRequired().HasMaxLength(500);
+            builder.Entity<Post>().Property(p => p.Url).IsRequired().HasMaxLength(500);
+            builder.Entity<Post>().Property(p => p.Photo).IsRequired().HasMaxLength(1000);
+            builder.Entity<Post>().Property(p => p.Likes).IsRequired().HasMaxLength(500);
+            builder.Entity<Post>().Property(p => p.Shares).IsRequired().HasMaxLength(500);
 
             builder.Entity<Address>().ToTable("Address");
             builder.Entity<Address>().HasKey(p => p.Id);
@@ -54,6 +64,12 @@ public class AppDbContext : DbContext
             builder.Entity<User>().Property(p => p.Phone).IsRequired().HasMaxLength(9);
             builder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(30);
             builder.Entity<User>().Property(p => p.Password).IsRequired().HasMaxLength(15);
+            
+            //Relationships Post with User
+            builder.Entity<User>()
+                .HasMany(p => p.Posts)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserId);
             
             //Relationships Address with Campaign
             builder.Entity<Campaign>()

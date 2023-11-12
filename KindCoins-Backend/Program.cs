@@ -51,6 +51,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
 builder.Services.AddScoped<ICampaignService, CampaignService>();
 
+//Post
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IPostService, PostService>();
 //TypeOfDonation
 builder.Services.AddScoped<ITypeOfDonationRepository, TypeOfDonationRepository>();
 builder.Services.AddScoped<ITypeOfDonationService, TypeOfDonationService>();

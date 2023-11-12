@@ -17,6 +17,6 @@ public class ModelToResourceProfile : Profile
         CreateMap<District, DistrictResource>();
         CreateMap<Country, CountryResource>();
         CreateMap<Department, DepartmentResource>();
-
+        CreateMap<Post, PostResource>();
     }
 }
