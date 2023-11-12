@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace KindCoins_Backend.KindCoins.Resource;
+﻿namespace KindCoins_Backend.KindCoins.Resource;
 
 public class UserResource
 {
@@ -11,6 +9,7 @@ public class UserResource
     public string Phone { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
+    public string Photo { get; set; }
     
     public SuscriptionPlanResource SuscriptionPlan { get; set; }
 }

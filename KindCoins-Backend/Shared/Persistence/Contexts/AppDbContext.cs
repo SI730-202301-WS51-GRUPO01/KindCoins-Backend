@@ -63,6 +63,7 @@ public class AppDbContext : DbContext
             builder.Entity<User>().Property(p => p.DNI).IsRequired().HasMaxLength(8);
             builder.Entity<User>().Property(p => p.Phone).IsRequired().HasMaxLength(9);
             builder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(30);
+            builder.Entity<User>().Property(p => p.Photo).HasMaxLength(500);
             builder.Entity<User>().Property(p => p.Password).IsRequired().HasMaxLength(15);
             
             //Relationships Post with User

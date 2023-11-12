@@ -67,7 +67,8 @@ public class UserService : IUserService
         existingUser.Phone = user.Phone;
         existingUser.Email = user.Email;
         existingUser.Password = user.Password;
-        existingUser.SuscriptionPlanId = user.SuscriptionPlanId;    
+        existingUser.SuscriptionPlanId = user.SuscriptionPlanId;
+        existingUser.Photo = user.Photo;
         
         try
         {
