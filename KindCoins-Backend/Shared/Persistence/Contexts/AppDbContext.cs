@@ -19,6 +19,9 @@ public class AppDbContext : DbContext
     public DbSet<BankAccount> BankAccounts { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<Donation> Donations { get; set; }
+    
+    public DbSet<TypeOfCreditCard> TypeOfCreditCards { get; set; }
+    
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
@@ -170,6 +173,11 @@ public class AppDbContext : DbContext
                 .WithOne(p => p.TypeOfDonation)
                 .HasForeignKey(p => p.TypeOfDonationId);
 
+            builder.Entity<TypeOfCreditCard>().ToTable("TypeOfCreditCard");
+            builder.Entity<TypeOfCreditCard>().HasKey(p => p.Id);
+            builder.Entity<TypeOfCreditCard>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<TypeOfCreditCard>().Property(p => p.Name);
+            
             // Apply Snake Case Naming Convention
  
             builder.UseSnakeCaseNamingConvention();

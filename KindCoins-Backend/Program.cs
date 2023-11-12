@@ -87,6 +87,10 @@ builder.Services.AddScoped<IDistrictService, DistrictService>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 
+//Type of credit card
+builder.Services.AddScoped<ITypeOfCreditCardRepository, TypeOfCreditCardRepository>();
+builder.Services.AddScoped<ITypeOfCreditCardService, TypeOfCreditCardService>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //AutoMapper Configuration
