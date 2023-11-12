@@ -9,4 +9,7 @@ public interface IPostService
     Task<PostResponse> SaveAsync(Post post);
     Task<PostResponse> UpdateAsync(int id, Post post);
     Task<PostResponse> DeleteAsync(int id);
+    Task<Post> GetByIdAsync(int id);
+    Task<PostResponse> UpdateLikesAsync(int id, int likes);
+    Task<PostResponse> UpdateSharesAsync(int id, int shares);
 }

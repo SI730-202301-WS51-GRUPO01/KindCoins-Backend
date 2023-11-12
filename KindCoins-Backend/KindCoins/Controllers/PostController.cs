@@ -28,6 +28,20 @@ public class PostController: ControllerBase
         return resources;
     }
     
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Post>> GetByIdAsync(int id)
+    {
+        var post = await _postService.GetByIdAsync(id);
+
+        if (post == null)
+        {
+            return NotFound("Post not found");
+        }
+
+        var resource = _mapper.Map<Post, PostResource>(post);
+        return Ok(resource);
+    }
+    
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] SavePostResource resource)
     {
@@ -68,4 +82,34 @@ public class PostController: ControllerBase
         var postResource = _mapper.Map<Post, PostResource>(result.Resource);
         return Ok(postResource);
     }
+    [HttpPut("{id}/likes")]
+    public async Task<IActionResult> UpdateLikesAsync(int id, [FromBody] int likes)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState.GetErrorMessages());
+
+        var result = await _postService.UpdateLikesAsync(id, likes);
+
+        if (!result.Success)
+            return BadRequest(result.Message);
+
+        var postResource = _mapper.Map<Post, PostResource>(result.Resource);
+        return Ok(postResource);
+    }
+
+    [HttpPut("{id}/shares")]
+    public async Task<IActionResult> UpdateSharesAsync(int id, [FromBody] int shares)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState.GetErrorMessages());
+
+        var result = await _postService.UpdateSharesAsync(id, shares);
+
+        if (!result.Success)
+            return BadRequest(result.Message);
+
+        var postResource = _mapper.Map<Post, PostResource>(result.Resource);
+        return Ok(postResource);
+    }
+    
 }

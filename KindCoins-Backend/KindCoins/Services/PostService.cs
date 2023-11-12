@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿
 using KindCoins_Backend.KindCoins.Domain.Models;
 using KindCoins_Backend.KindCoins.Domain.Repositories;
 using KindCoins_Backend.KindCoins.Domain.Services;
@@ -21,6 +21,11 @@ public class PostService: IPostService
     public async Task<IEnumerable<Post>> ListAsync()
     {
         return await _postRepository.GetAllAsync();
+    }
+    
+    public async Task<Post> GetByIdAsync(int id)
+    {
+        return await _postRepository.FindByIdAsync(id);
     }
 
     public async Task<PostResponse> SaveAsync(Post post)
@@ -77,4 +82,47 @@ public class PostService: IPostService
             return new PostResponse($"An error occurred while updating the post: {ex.Message}");
         }
     }
+    
+    public async Task<PostResponse> UpdateLikesAsync(int id, int likes)
+    {
+        var existingPost = await _postRepository.FindByIdAsync(id);
+
+        if (existingPost == null)
+            return new PostResponse("Post not found.");
+
+        existingPost.Likes = likes;
+
+        try
+        {
+            _postRepository.Update(existingPost);
+            await _unitOfWork.CompleteAsync();
+            return new PostResponse(existingPost);
+        }
+        catch (Exception e)
+        {
+            return new PostResponse($"An error occurred while updating the likes: {e.Message}");
+        }
+    }
+
+    public async Task<PostResponse> UpdateSharesAsync(int id, int shares)
+    {
+        var existingPost = await _postRepository.FindByIdAsync(id);
+
+        if (existingPost == null)
+            return new PostResponse("Post not found.");
+
+        existingPost.Shares = shares;
+
+        try
+        {
+            _postRepository.Update(existingPost);
+            await _unitOfWork.CompleteAsync();
+            return new PostResponse(existingPost);
+        }
+        catch (Exception e)
+        {
+            return new PostResponse($"An error occurred while updating the shares: {e.Message}");
+        }
+    }
+
 }
