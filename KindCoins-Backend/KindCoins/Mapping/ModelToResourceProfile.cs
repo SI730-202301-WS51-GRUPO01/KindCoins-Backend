@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using KindCoins_Backend.KindCoins.Domain.Models;
+using KindCoins_Backend.KindCoins.Domain.Services.Communication;
 using KindCoins_Backend.KindCoins.Resource;
 
 namespace KindCoins_Backend.KindCoins.Mapping;
@@ -17,6 +18,9 @@ public class ModelToResourceProfile : Profile
         CreateMap<District, DistrictResource>();
         CreateMap<Country, CountryResource>();
         CreateMap<Department, DepartmentResource>();
-
+        CreateMap<Post, PostResource>();
+        CreateMap<Donation, DonationResource>();
+        CreateMap<TypeOfCreditCard, TypeOfCreditCardResource>();
+        CreateMap<PaymentData, PaymentDataResource>();
     }
 }

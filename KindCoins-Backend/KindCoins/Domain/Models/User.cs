@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections;
+using System.Text.Json.Serialization;
 
 namespace KindCoins_Backend.KindCoins.Domain.Models;
 
@@ -6,6 +7,7 @@ public class User
 {
     public int Id { get; set; }
     public string FirstName { get; set; }
+    public string Photo { get; set; }
     public string LastName { get; set; }
     public string DNI { get; set; }
     public string Phone { get; set; }

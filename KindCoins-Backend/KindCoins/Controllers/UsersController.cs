@@ -29,6 +29,20 @@ public class UsersController : ControllerBase
         return resources;
     }
     
+    [HttpGet("{id}")]
+    public async Task<ActionResult<UserResource>> GetByIdAsync(int id)
+    {
+        var user = await _userService.GetByIdAsync(id);
+
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        var resource = _mapper.Map<User, UserResource>(user);
+        return Ok(resource);
+    }
+
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] SaveUserResource resource)
     {

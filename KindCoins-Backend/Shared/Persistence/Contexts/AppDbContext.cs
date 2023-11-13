@@ -1,4 +1,5 @@
 ﻿using KindCoins_Backend.KindCoins.Domain.Models;
+using KindCoins_Backend.KindCoins.Domain.Services.Communication;
 using KindCoins_Backend.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,13 @@ public class AppDbContext : DbContext
     public DbSet<TypeOfDonation> TypeOfDonations { get; set; }
     public DbSet<SuscriptionPlan> SuscriptionPlans { get; set; }
     public DbSet<BankAccount> BankAccounts { get; set; }
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Donation> Donations { get; set; }
+    
+    public DbSet<TypeOfCreditCard> TypeOfCreditCards { get; set; }
+    
+    public DbSet<PaymentData> PaymentDatas { get; set; }
+
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
@@ -53,7 +61,23 @@ public class AppDbContext : DbContext
             builder.Entity<User>().Property(p => p.DNI).IsRequired().HasMaxLength(8);
             builder.Entity<User>().Property(p => p.Phone).IsRequired().HasMaxLength(9);
             builder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(30);
+            builder.Entity<User>().Property(p => p.Photo).HasMaxLength(500);
             builder.Entity<User>().Property(p => p.Password).IsRequired().HasMaxLength(15);
+            
+            builder.Entity<Post>().ToTable("Post");
+            builder.Entity<Post>().HasKey(p => p.Id);
+            builder.Entity<Post>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Post>().Property(p => p.Comment).IsRequired().HasMaxLength(500);
+            builder.Entity<Post>().Property(p => p.Url).IsRequired().HasMaxLength(500);
+            builder.Entity<Post>().Property(p => p.Photo).IsRequired().HasMaxLength(1000);
+            builder.Entity<Post>().Property(p => p.Likes).IsRequired().HasMaxLength(500);
+            builder.Entity<Post>().Property(p => p.Shares).IsRequired().HasMaxLength(500);
+
+            //Relationships Post with User
+            builder.Entity<User>()
+                .HasMany(p => p.Posts)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserId);
             
             //Relationships Address with Campaign
             builder.Entity<Campaign>()
@@ -128,10 +152,55 @@ public class AppDbContext : DbContext
                 .WithOne(p => p.Campaign)
                 .HasForeignKey(p => p.CampaignId);
             
-
+            builder.Entity<Donation>().ToTable("Donation");
+            builder.Entity<Donation>().HasKey(p => p.Id);
+            builder.Entity<Donation>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Donation>().Property(p => p.Amount);
             
+            //Relationships Donation with User
+            builder.Entity<User>()
+                .HasMany(p => p.Donations)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserId);
+            
+            //Relationships Donation with Campaign
+            builder.Entity<Campaign>()
+                .HasMany(p => p.Donations)
+                .WithOne(p => p.Campaign)
+                .HasForeignKey(p => p.CampaignId);
+            
+            //Relationships Donation with Type of Donations
+            builder.Entity<TypeOfDonation>()
+                .HasMany(p => p.Donations)
+                .WithOne(p => p.TypeOfDonation)
+                .HasForeignKey(p => p.TypeOfDonationId);
 
+            builder.Entity<TypeOfCreditCard>().ToTable("TypeOfCreditCard");
+            builder.Entity<TypeOfCreditCard>().HasKey(p => p.Id);
+            builder.Entity<TypeOfCreditCard>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<TypeOfCreditCard>().Property(p => p.Name);
 
+            builder.Entity<PaymentData>().ToTable("PaymentData");
+            builder.Entity<PaymentData>().HasKey(p => p.Id);
+            builder.Entity<PaymentData>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<PaymentData>().Property(p => p.CardNumber);
+            builder.Entity<PaymentData>().Property(p => p.CVV);
+            builder.Entity<PaymentData>().Property(p => p.FirstName);
+            builder.Entity<PaymentData>().Property(p => p.LastName);
+            builder.Entity<PaymentData>().Property(p => p.Email);
+            
+            //Relationships Payment data with User
+            builder.Entity<User>()
+                .HasMany(p => p.PaymentDatas)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserId);
+            
+            //Relationships payment data with Type of credit card
+            builder.Entity<TypeOfCreditCard>()
+                .HasMany(p => p.PaymentDatas)
+                .WithOne(p => p.TypeOfCreditCard)
+                .HasForeignKey(p => p.TypeOfCreditCardId);
+            
             // Apply Snake Case Naming Convention
  
             builder.UseSnakeCaseNamingConvention();

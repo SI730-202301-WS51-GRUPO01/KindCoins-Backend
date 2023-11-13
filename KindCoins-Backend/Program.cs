@@ -51,6 +51,14 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICampaignRepository, CampaignRepository>();
 builder.Services.AddScoped<ICampaignService, CampaignService>();
 
+//Post
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IPostService, PostService>();
+
+//Donation
+builder.Services.AddScoped<IDonationRepository, DonationRepository>();
+builder.Services.AddScoped<IDonationService, DonationService>();
+
 //TypeOfDonation
 builder.Services.AddScoped<ITypeOfDonationRepository, TypeOfDonationRepository>();
 builder.Services.AddScoped<ITypeOfDonationService, TypeOfDonationService>();
@@ -78,6 +86,14 @@ builder.Services.AddScoped<IDistrictService, DistrictService>();
 //Address
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+
+//Type of credit card
+builder.Services.AddScoped<ITypeOfCreditCardRepository, TypeOfCreditCardRepository>();
+builder.Services.AddScoped<ITypeOfCreditCardService, TypeOfCreditCardService>();
+
+//Payment data
+builder.Services.AddScoped<IPaymentDataRepository, PaymentDataRepository>();
+builder.Services.AddScoped<IPaymentDataService, PaymentDataService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
